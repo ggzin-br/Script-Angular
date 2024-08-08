@@ -8,27 +8,26 @@ class Installer(Padrao):
 
     def __init__(self, nome: str):
         self.nome = nome
-    
-    def __call__(self):
-        r = subprocess.run(self.com, capture_output=True)
-        print(r.stdout)
 
     def rodar(self):
         ## Configuração do PATH
         self.com = ["powershell",
                "-Command", 
-               f'[System.Environment]::SetEnvironmentVariable("PATH", "$env:PATH;{os.path.join(os.path.expanduser("~"), self.nome)}", [System.EnvironmentVariableTarget]::User)']
-        self.__call__()
+               f'[System.Environment]::SetEnvironmentVariable("PATH", "$env:PATH;{os.path.join(os.path.expanduser("~"), "nodejs", self.nome)}", [System.EnvironmentVariableTarget]::User)']
+        r = subprocess.run(self.com, capture_output=True)
+        print(r.stdout)
 
         ## Instalação do Angular
         self.com = ["powershell",
                     "-Command",
                     f'npm install -g @angular/cli']
-        self.__call__()
+        r = subprocess.run(self.com, capture_output=True)
+        print(r.stdout)
 
         ## Criação de um projeto
         self.com = ["powershell",
                     "-Command",
                     f'ng.cmd new --style "css" --skip-git padrao']
-        self.__call__()
+        r = subprocess.run(self.com, capture_output=True)
+        print(r.stdout)
 

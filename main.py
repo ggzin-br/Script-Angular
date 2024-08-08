@@ -1,6 +1,7 @@
 from downloader import Downloader
 from extrator import Extrator
 from versioner import Versioner
+from installer import Installer
 import os
 
 ### Um software de automação do Pedro - livre para distribuição e modificação ###
@@ -27,3 +28,4 @@ pacote = f"node-{versao}-win-x64.zip"
 Downloader(f"https://nodejs.org/dist/latest/{pacote}", pacote).rodar()
 Extrator(pacote).rodar()
 
+Installer(os.path.join("nodejs", f"node-{versao}-win-x64")).rodar()

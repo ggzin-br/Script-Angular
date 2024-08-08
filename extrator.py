@@ -13,7 +13,7 @@ class Extrator(Padrao):
         with zipfile.ZipFile(self.nome, "r") as zip:
             try:
                 os.mkdir(self.path)
-            except Exception as e:
-                raise SystemExit(e)
+            except FileExistsError:
+                print("O diretório já existe, prosseguindo com a instalação...")
             
             zip.extractall(self.path)

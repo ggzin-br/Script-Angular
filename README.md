@@ -19,6 +19,5 @@ python main.py
 
 #### Rodar o ambiente do TypeScript
 No menu `Terminal` clique em `Executar a Tarefa...` e selecione o que deseja fazer:
-</b>Opções</b>
 - rodar
 - compilar 

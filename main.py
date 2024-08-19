@@ -4,7 +4,6 @@ from versioner import Versioner
 from installer import Installer
 from type import Type
 from gui import Gui
-import os
 
 ### Um software de automação do Pedro - livre para distribuição e modificação ###
 
@@ -28,8 +27,9 @@ tasks: str = r"""
         {
           "label": "compilar",
           "type": "shell",
-          "command": "tsc",
+          "command": "npx",
           "args": [
+            "tsc"
             "-p",
             "tsconfig.json"
           ],
@@ -65,7 +65,7 @@ def exec_tudo():
   ## Download do pacote && Extração #
   Downloader(f"https://nodejs.org/dist/latest/{pacote}", pacote).rodar()
   Extrator(pacote).rodar()
-  Installer(dir).rodar()
+  Installer(dir, pacote).rodar()
 
   ## Configuração do ambiente do TypeScript
   Type("type-env", tsconfig,tasks).rodar()

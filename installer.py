@@ -4,30 +4,28 @@ import os
 
 class Installer(Padrao):
 
-    def __init__(self, nome: str, pacote: str):
-        self.nome = nome
+    ## Declaração de variáveis #
+    dir_install: str
+    pacote: str
+
+    def __init__(self, pacote: str):
         self.pacote = pacote
+        self.dir_install = os.path.join(os.path.expanduser("~"), "nodejs", pacote)
 
     def rodar(self):
         
-        ## Configuração do PATH 
-        os.environ["PATH"] += os.pathsep + os.path.join(os.path.expanduser("~"), "nodejs", self.nome)
-        dir_install = os.path.join(os.path.expanduser("~"), "nodejs", self.pacote)
+        ## Configuração do PATH # 
+        os.environ["PATH"] += os.pathsep + os.path.join(os.path.expanduser("~"), "nodejs", self.pacote)
         # Este PATH não é definitivo, somente é usado durante a execução do programa
 
-        ## Instalação do Angular
+        ## Instalação do Angular #
         subprocess.run(
-            f'{os.path.join(dir_install, "npm")} install -g @angular/cli', 
+            f'{os.path.join(self.dir_install, "npm")} install -g @angular/cli', 
             shell=True)
         
-        ## Instalação do Tsc
+        ## Instalação do Tsc #
         subprocess.run(
-            f'{os.path.join(dir_install, "npm")} install -g typescript --save-dev',
-            shell=True)
-
-        ## Criação de um projeto
-        subprocess.run(
-            f'{os.path.join(dir_install, "ng.cmd")} new --style "css" --skip-git --defaults padrao', 
+            f'{os.path.join(self.dir_install, "npm")} install -g typescript --save-dev',
             shell=True)
         
 # Caso precise:

@@ -3,83 +3,58 @@ from extrator import Extrator
 from versioner import Versioner
 from installer import Installer
 from type import Type
+from projeter import Projeter
 from gui import Gui
+from runner import Runner
 
-### Um software de automação do Pedro - livre para distribuição e modificação ###
+# Um software de automação do Pedro - livre para distribuição e modificação #
 
 # Declaração de variáveis #
 pacote: str
 versao: str
-
-tsconfig: str = r"""
-{
-      "compilerOptions": {
-          "target": "ES5",
-          "module": "CommonJS",
-          "outDir": "js"
-      }
+zip: str
+link: str = "https://nodejs.org/dist/latest"
+tsconfig: str
+tasks: str
+## Objetos #
+runner: Runner
+objs: dict = {
+  "Downloader": Downloader,
+  "Extrator": Extrator,
+  "Installer": Installer,
+  "Type": Type,
+  "Projeter": Projeter,
+  "Gui": Gui
 }
-"""
-tasks: str = r"""
-  {
-      "version": "2.0.0",
-      "tasks": [
-        {
-          "label": "compilar",
-          "type": "shell",
-          "command": "npx",
-          "args": [
-            "tsc"
-            "-p",
-            "tsconfig.json"
-          ],
-          "group": {
-            "kind": "build",
-            "isDefault": true
-          },
-        },
-        {
-          "label": "rodar",
-          "type": "shell",
-          "command": "node",
-          "args": [
-            "js/${fileBasenameNoExtension}.js"
-          ],
-          "group": {
-            "kind": "test",
-            "isDefault": true
-          },
-        }
-      ]
-  }
-"""
 
-## Versao atual #
-versao = Versioner("https://nodejs.org/dist/latest").rodar()
-pacote = f"node-{versao}-win-x64.zip"
-dir = f"node-{versao}-win-x64"
+# Versao atual #
+versao = Versioner(link).rodar()
+zip = f"node-{versao}-win-x64.zip"
+pacote = f"node-{versao}-win-x64"
 
-## Funções macro #
-def exec_tudo():
+## Leitura dos arquivos de config
+with open("tasks", "r") as arq:
+    tasks = arq.read()
+with open("tsconfig", "r") as arq:
+    tsconfig = arq.read()
 
-  ## Download do pacote && Extração #
-  Downloader(f"https://nodejs.org/dist/latest/{pacote}", pacote).rodar()
-  Extrator(pacote).rodar()
-  Installer(dir, pacote).rodar()
-
-  ## Configuração do ambiente do TypeScript
-  Type("type-env", tsconfig,tasks).rodar()
-
-def path():
-    print(f'[System.Environment]::SetEnvironmentVariable("PATH", "$env:PATH;{os.path.join(os.path.expanduser("~"), dir)}", [System.EnvironmentVariableTarget]::User)')
+## Classe macro
+runner = Runner(objs, {
+    "pacote": pacote,
+    "link": link,
+    "zip": zip,
+    "tasks": tasks,
+    "tsconfig": tsconfig
+})
 
 ## Interface #
 Gui(
     {
-        "Instalar tudo": exec_tudo,
-        "Instalação do Angular/TypeScript": Installer(f"node-{versao}-win-x64").rodar,
-        "Ambiente TypeScript": Type("type-env", tsconfig, tasks).rodar,
-        "Instalação do .zip do nodejs": Downloader(f"https://nodejs.org/dist/latest/{pacote}", pacote).rodar,
-        "PATH": path
+        "Instalar tudo": runner.tudo,
+        "Criação do projeto": runner.prog,
+        "Ambiente TypeScript": runner.type,
+        "Instalação do Angular/TypeScript": runner.ang_e_type_inst,
+        "Instalação do nodejs": runner.download,
+        "PATH": runner.path
     }
 ).rodar()

@@ -1,3 +1,6 @@
+# Esse programa agrega todos os objetos para ser executado pelo onclick no Gui.
+# É separado em funções para ser capaz executar comandos unitários ou duplos
+
 import os
 
 class Runner():

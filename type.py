@@ -1,3 +1,6 @@
+# Esse programa cria um ambiente do vscode para o typescript.
+# Essa classe é inteiramente para a configuração do ambiente.
+
 from rodar import Padrao
 import os
 

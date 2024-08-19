@@ -1,3 +1,7 @@
+# Esse programa utiliza a biblioteca subprocess que executa comandos de terminal.
+# Todo comando é forçado a ser executado no diretório certo do node.
+# É praticamente uma classe de instalar pacotes npm.
+
 from rodar import Padrao
 import subprocess
 import os

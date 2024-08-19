@@ -9,7 +9,7 @@ from runner import Runner
 
 # Um software de automação do Pedro - livre para distribuição e modificação #
 
-# Declaração de variáveis #
+## Declaração de variáveis #
 pacote: str
 versao: str
 zip: str
@@ -24,21 +24,20 @@ objs: dict = {
   "Installer": Installer,
   "Type": Type,
   "Projeter": Projeter,
-  "Gui": Gui
 }
 
-# Versao atual #
+## Versao atual #
 versao = Versioner(link).rodar()
 zip = f"node-{versao}-win-x64.zip"
 pacote = f"node-{versao}-win-x64"
 
-## Leitura dos arquivos de config
+## Leitura dos arquivos de config #
 with open("tasks", "r") as arq:
     tasks = arq.read()
 with open("tsconfig", "r") as arq:
     tsconfig = arq.read()
 
-## Classe macro
+## Classe macro #
 runner = Runner(objs, {
     "pacote": pacote,
     "link": link,

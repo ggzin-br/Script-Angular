@@ -12,7 +12,7 @@ class Extrator(Padrao):
     zip: str
 
     def __init__(self, zip: str):
-        self.nome = os.path.join(os.path.expanduser("~"), zip)
+        self.zip = os.path.join(os.path.expanduser("~"), zip)
 
     def rodar(self):
         

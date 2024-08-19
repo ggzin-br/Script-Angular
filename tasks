@@ -1,0 +1,31 @@
+  {
+      "version": "2.0.0",
+      "tasks": [
+        {
+          "label": "compilar",
+          "type": "shell",
+          "command": "npx",
+          "args": [
+            "tsc",
+            "-p",
+            "tsconfig.json"
+          ],
+          "group": {
+            "kind": "build",
+            "isDefault": true
+          },
+        },
+        {
+          "label": "rodar",
+          "type": "shell",
+          "command": "node",
+          "args": [
+            "js/${fileBasenameNoExtension}.js"
+          ],
+          "group": {
+            "kind": "test",
+            "isDefault": true
+          },
+        }
+      ]
+  }

@@ -1,3 +1,9 @@
+# Esse programa faz uma gambiarra enorme para obter a versão do node.
+# Ele retorna o html em uma string e splita ela com o "-".
+# Com isso ele compare este split até a primeira letra ser "v".
+
+# node-v.....- <- sempre começa e termina com "-"
+
 import requests
 from rodar import Padrao
 

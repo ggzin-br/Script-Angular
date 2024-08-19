@@ -4,9 +4,8 @@
         {
           "label": "compilar",
           "type": "shell",
-          "command": "npx",
+          "command": "tsc.cmd",
           "args": [
-            "tsc",
             "-p",
             "tsconfig.json"
           ],

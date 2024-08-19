@@ -7,7 +7,6 @@ class Gui(Padrao):
         self.janela = tk.Tk()
         
         self.chaves = list(dict_elel.keys())
-        self.valores = list(dict_elel.items())
         self.dicionario = dict_elel
 
     def rodar(self):
@@ -21,6 +20,5 @@ class Gui(Padrao):
                       command=self.dicionario[chave]
                       ).pack(side=tk.TOP, padx=10, pady=10)
 
-        ## Posicionamento
-
+        ## Janela
         self.janela.mainloop()

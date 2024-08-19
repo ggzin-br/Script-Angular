@@ -12,7 +12,7 @@ class Runner():
     
     def tudo(self):
         ## Download do pacote && Extração #
-        self.objs["Downloader"](self.vars["link"]+"/"+self.vars["zip"], self.vars["pacote"]).rodar()
+        self.objs["Downloader"](self.vars["link"]+"/"+self.vars["zip"], self.vars["zip"]).rodar()
         self.objs["Extrator"](self.vars["zip"]).rodar()
         self.objs["Installer"](self.vars["pacote"]).rodar()
         self.objs["Projeter"](self.vars["pacote"]).rodar()
